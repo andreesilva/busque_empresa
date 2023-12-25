@@ -32,20 +32,22 @@ class EnterpriseController extends GetxController
       if ((error.toString() == 'Connection failed') ||
           (error.toString() == 'Network is unreachable') ||
           (error.toString() == 'Connection timed out') ||
-          (error.toString() == 'Failed host lookup: receitaws.com.br') ||
-          (error.toString() ==
-              "FormatException: Unexpected character (at character 1)")) {
+          (error.toString() == 'Failed host lookup: receitaws.com.br')) {
         ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(
           content: Text('Sem conexão de rede'),
           backgroundColor: Colors.red,
           duration: Duration(seconds: 15),
         ));
-      } else if (error.toString() == 'Connection refused') {
+      } else if (error.toString() ==
+          'Too many requests, please try again later.') {
+        change(null, status: RxStatus.error('Falha no servidor'));
+      } else if (error.toString() ==
+          'FormatException: Unexpected character (at character 1)') {
         change(null, status: RxStatus.error('Falha no servidor'));
       } else {
         print(error.toString());
 
-        change(null, status: RxStatus.error(error.toString()));
+        //change(null, status: RxStatus.error(error.toString()));
       }
     });
     super.onInit();

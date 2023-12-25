@@ -71,6 +71,12 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
           backgroundColor: Colors.red,
           duration: Duration(seconds: 15),
         ));
+      } else if (error.toString() ==
+          'Too many requests, please try again later.') {
+        change(null, status: RxStatus.error('Falha no servidor'));
+      } else if (error.toString() ==
+          'FormatException: Unexpected character (at character 1)') {
+        change(null, status: RxStatus.error('Falha no servidor'));
       } else {
         print(error.toString());
       }
