@@ -38,3 +38,12 @@ final button_menu = ElevatedButton.styleFrom(
     }
   }),
 ));
+
+final button_disabled = ElevatedButton.styleFrom(
+  backgroundColor: Colors.white,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(6),
+  ),
+  elevation: 0,
+  shadowColor: Colors.white,
+);

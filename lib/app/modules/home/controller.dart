@@ -1,12 +1,11 @@
+import 'dart:async';
+
 import 'package:busca_empresa/app/data/models/enterprise.dart';
 import 'package:busca_empresa/app/modules/home/repository.dart';
-import 'package:busca_empresa/app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class HomeController extends GetxController with StateMixin<EnterpriseModel> {
   final HomeRepository _repository;
@@ -23,6 +22,10 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
   String cnpj = " ";
 
   var cn = false.obs;
+  var variableTimer = false.obs;
+  var clickedButton = false.obs;
+
+  var timeLeft = 0.obs;
 
   @override
   void onInit() {
@@ -31,6 +34,21 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
     searchEnterprise(cnpj);
 
     super.onInit();
+  }
+
+  //Temporizador que só deixa fazer uma nova consulta depois de 20 segundos. A api da receita só deixa fazer 3 requisições por minuto, no plano gratuito.
+  startTimer() {
+    const duration = Duration(seconds: 1);
+
+    Timer.periodic(duration, (timer) {
+      print(timer.tick);
+      if (timeLeft > 0) {
+        timeLeft = timeLeft - 1;
+      } else {
+        variableTimer.value = false;
+        timer.cancel();
+      }
+    });
   }
 
   submit() {
@@ -42,6 +60,8 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
     var noTrace = withoutBar.replaceAll('-', '');
 
     searchEnterprise(noTrace);
+
+    typedText.clear();
 
     loadingCircular.value = false;
   }
@@ -62,26 +82,17 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
 
       loading(false);
     }, onError: (error) {
-      if ((error.toString() == 'Connection failed') ||
+      print(error.toString());
+      if ((error.toString() == "Couldn't resolve host name") ||
+          (error.toString() == 'Timeout was reached') ||
           (error.toString() == 'Network is unreachable') ||
-          (error.toString() == 'Connection timed out') ||
           (error.toString() == "Failed host lookup: 'receitaws.com.br'")) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(
-          content: Text('Sem conexão de rede'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 15),
-        ));
-      } else if (error.toString() ==
-          'Too many requests, please try again later.') {
-        change(null, status: RxStatus.error('Falha no servidor'));
-      } else if (error.toString() ==
-          'FormatException: Unexpected character (at character 1)') {
-        change(null, status: RxStatus.error('Falha no servidor'));
+        Get.offAllNamed('/button_error_conection');
       } else {
-        print(error.toString());
+        Get.offAllNamed('/button_return');
       }
 
-      loading(false);
+      loadingCircular.value = false;
     });
   }
 

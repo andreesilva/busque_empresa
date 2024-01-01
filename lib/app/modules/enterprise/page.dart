@@ -25,7 +25,7 @@ class EnterprisePage extends GetView<EnterpriseController> {
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 color: ColorsApp.appTitle,
-                fontSize: 17,
+                fontSize: 20,
               ),
             )),
         centerTitle: true,
@@ -340,7 +340,7 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                           "Atividades",
                                           style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 9,
                                                 color: controller.colorButton1
                                                             .value !=
                                                         true

@@ -20,7 +20,7 @@ class AboutPage extends GetView<AboutController> {
             style: GoogleFonts.poppins(
               textStyle: const TextStyle(
                 color: ColorsApp.appTitle,
-                fontSize: 17,
+                fontSize: 20,
               ),
             )),
         centerTitle: true,
@@ -45,7 +45,7 @@ class AboutPage extends GetView<AboutController> {
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                     ),
@@ -63,7 +63,7 @@ class AboutPage extends GetView<AboutController> {
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                     ),
@@ -81,7 +81,7 @@ class AboutPage extends GetView<AboutController> {
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                     ),
@@ -99,7 +99,7 @@ class AboutPage extends GetView<AboutController> {
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                     ),

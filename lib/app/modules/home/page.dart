@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:busca_empresa/app/core/theme/colors.app.dart';
 import 'package:busca_empresa/app/modules/home/controller.dart';
 import 'package:busca_empresa/app/routes/routes.dart';
@@ -7,8 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class HomePage extends GetView<HomeController> {
   HomePage({super.key});
@@ -22,7 +22,7 @@ class HomePage extends GetView<HomeController> {
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(
                   color: ColorsApp.appTitle,
-                  fontSize: 17,
+                  fontSize: 20,
                 ),
               )),
           actions: [
@@ -61,6 +61,7 @@ class HomePage extends GetView<HomeController> {
                                   children: [
                                     Center(
                                       child: TextFormField(
+                                        keyboardType: TextInputType.number,
                                         textAlign: TextAlign.center,
                                         autofocus: false,
                                         controller: controller.typedText,
@@ -121,47 +122,137 @@ class HomePage extends GetView<HomeController> {
                               ),
                               Row(
                                 children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 0.0),
-                                      child: ElevatedButton(
-                                        style: button,
-                                        child: AnimatedBuilder(
-                                          animation: controller.loadingCircular,
-                                          builder: (context, _) {
-                                            return controller
-                                                    .loadingCircular.value
-                                                ? const SizedBox(
-                                                    width: 20,
-                                                    height: 20,
-                                                    child:
-                                                        CircularProgressIndicator(),
-                                                  )
-                                                : Text(
-                                                    'Consultar',
-                                                    style: GoogleFonts.poppins(
-                                                      textStyle:
-                                                          const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  );
-                                          },
-                                        ),
-                                        onPressed: () => {
-                                          if (controller.formKey.currentState!
-                                              .validate())
-                                            {
-                                              controller.loadingCircular.value =
-                                                  true,
-                                              controller.cn.value = true,
-                                              controller.submit(),
-                                            }
-                                        },
-                                      ),
-                                    ),
+                                  Obx(
+                                    () => controller.variableTimer.isFalse
+                                        ? Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0.0),
+                                              child: ElevatedButton(
+                                                style: button,
+                                                child: AnimatedBuilder(
+                                                  animation: controller
+                                                      .loadingCircular,
+                                                  builder: (context, _) {
+                                                    return controller
+                                                            .loadingCircular
+                                                            .value
+                                                        ? const SizedBox(
+                                                            width: 20,
+                                                            height: 20,
+                                                            child:
+                                                                CircularProgressIndicator(),
+                                                          )
+                                                        : Text(
+                                                            'Consultar',
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              textStyle:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          );
+                                                  },
+                                                ),
+                                                onPressed: () => {
+                                                  if (controller
+                                                      .formKey.currentState!
+                                                      .validate())
+                                                    {
+                                                      controller.loadingCircular
+                                                          .value = true,
+                                                      controller.cn.value =
+                                                          true,
+                                                      controller.variableTimer
+                                                          .value = true,
+                                                      controller
+                                                          .timeLeft.value = 20,
+                                                      controller.clickedButton
+                                                          .value = false,
+                                                      controller.startTimer(),
+                                                      controller.submit(),
+                                                    }
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                        : Text(
+                                            '',
+                                          ),
+                                    /*
+                                        Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0.0),
+                                              child: ElevatedButton(
+                                                style: controller
+                                                        .clickedButton.isFalse
+                                                    ? button
+                                                    : button_disabled,
+                                                child: AnimatedBuilder(
+                                                  animation: controller
+                                                      .loadingCircular,
+                                                  builder: (context, _) {
+                                                    return controller
+                                                            .loadingCircular
+                                                            .value
+                                                        ? const SizedBox(
+                                                            width: 20,
+                                                            height: 20,
+                                                            child:
+                                                                CircularProgressIndicator(),
+                                                          )
+                                                        : Obx(
+                                                            () => controller
+                                                                    .clickedButton
+                                                                    .isFalse
+                                                                ? Text(
+                                                                    'Consultar',
+                                                                    style: GoogleFonts
+                                                                        .poppins(
+                                                                      textStyle:
+                                                                          const TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            14,
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : Text(
+                                                                    'Aguarde...${controller.timeLeft}',
+                                                                    style: GoogleFonts
+                                                                        .poppins(
+                                                                      textStyle:
+                                                                          const TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            14,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                          );
+                                                  },
+                                                ),
+                                                onPressed: () => {
+                                                  if (controller
+                                                      .formKey.currentState!
+                                                      .validate())
+                                                    {
+                                                      controller.clickedButton
+                                                          .value = true,
+                                                    }
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          */
                                   ),
                                 ],
                               ),
@@ -313,44 +404,98 @@ class HomePage extends GetView<HomeController> {
                                                   ),
                                                   Container(
                                                     alignment:
-                                                        Alignment.centerRight,
+                                                        Alignment.centerLeft,
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              right: 8,
-                                                              left: 0,
-                                                              top: 10,
-                                                              bottom: 4),
-                                                      child: SizedBox(
-                                                        width: 100,
-                                                        child: ElevatedButton(
-                                                          onPressed: () {
-                                                            var formatted = controller
-                                                                .removeTrace(
-                                                                    controller
-                                                                        .state!
-                                                                        .cnpj);
-                                                            Get.toNamed(Routes
-                                                                .enterprise
-                                                                .replaceFirst(
-                                                                    ':id',
-                                                                    formatted));
-                                                          },
-                                                          style: button_2,
-                                                          child: Text(
-                                                              "Ver mais",
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                textStyle:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 14,
-                                                                ),
-                                                              )),
+                                                              top: 5,
+                                                              left: 20,
+                                                              right: 20),
+                                                      child: Text(
+                                                        controller.state!
+                                                                    .status! ==
+                                                                'OK'
+                                                            ? 'Status: ATIVO'
+                                                            : 'Status: INATIVO',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          textStyle:
+                                                              const TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
+                                                  ),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 5,
+                                                              left: 20,
+                                                              right: 20),
+                                                      child: Text(
+                                                        "Capital social: R\$ ${controller.state!.shareCapital}",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          textStyle:
+                                                              const TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Obx(
+                                                    () =>
+                                                        controller.variableTimer
+                                                                .isFalse
+                                                            ? Container(
+                                                                alignment: Alignment
+                                                                    .centerRight,
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right: 8,
+                                                                      left: 0,
+                                                                      top: 10,
+                                                                      bottom:
+                                                                          4),
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 100,
+                                                                    child:
+                                                                        ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        var formatted = controller.removeTrace(controller
+                                                                            .state!
+                                                                            .cnpj);
+                                                                        Get.toNamed(Routes.enterprise.replaceFirst(
+                                                                            ':id',
+                                                                            formatted));
+                                                                      },
+                                                                      style:
+                                                                          button_2,
+                                                                      child: Text(
+                                                                          "Ver mais",
+                                                                          style:
+                                                                              GoogleFonts.poppins(
+                                                                            textStyle:
+                                                                                const TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontSize: 14,
+                                                                            ),
+                                                                          )),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : Text(""),
                                                   ),
                                                 ],
                                               ),

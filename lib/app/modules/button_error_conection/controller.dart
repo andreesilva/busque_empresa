@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class AboutController extends GetxController {
+class ButtonErrorConectionController extends GetxController {
   final loading = true.obs;
 
   @override

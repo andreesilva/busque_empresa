@@ -2,12 +2,15 @@ import 'package:busca_empresa/app/data/models/enterprise.dart';
 import 'package:busca_empresa/app/modules/enterprise/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EnterpriseController extends GetxController
     with StateMixin<EnterpriseModel> {
   final EnterpriseRepository _repository;
 
   EnterpriseController(this._repository);
+
+  final loadingCircular = ValueNotifier<bool>(false);
 
   final loading = true.obs;
 
@@ -29,26 +32,16 @@ class EnterpriseController extends GetxController
     _repository.getEnterprise(cnpj).then((data) {
       change(data, status: RxStatus.success());
     }, onError: (error) {
-      if ((error.toString() == 'Connection failed') ||
+      print(error.toString());
+      if ((error.toString() == "Couldn't resolve host name") ||
+          (error.toString() == 'Timeout was reached') ||
           (error.toString() == 'Network is unreachable') ||
-          (error.toString() == 'Connection timed out') ||
-          (error.toString() == 'Failed host lookup: receitaws.com.br')) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(const SnackBar(
-          content: Text('Sem conexão de rede'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 15),
-        ));
-      } else if (error.toString() ==
-          'Too many requests, please try again later.') {
-        change(null, status: RxStatus.error('Falha no servidor'));
-      } else if (error.toString() ==
-          'FormatException: Unexpected character (at character 1)') {
-        change(null, status: RxStatus.error('Falha no servidor'));
+          (error.toString() == "Failed host lookup: 'receitaws.com.br'")) {
+        Get.offAllNamed('/button_error_conection');
       } else {
-        print(error.toString());
-
-        //change(null, status: RxStatus.error(error.toString()));
+        Get.offAllNamed('/button_return');
       }
+      loadingCircular.value = false;
     });
     super.onInit();
   }

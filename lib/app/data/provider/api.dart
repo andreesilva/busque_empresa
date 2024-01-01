@@ -16,8 +16,8 @@ class Api extends GetConnect {
       final response = await http.get(
         Uri.parse('https://receitaws.com.br/v1/cnpj/$cnpj'),
       );
-      print(cnpj);
-      print(response.body);
+      //print(cnpj);
+      //print(response.body);
       return EnterpriseModel.fromJson(jsonDecode(response.body));
     } catch (e) {
       throw e.toString();
