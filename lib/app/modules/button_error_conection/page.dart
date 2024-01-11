@@ -17,7 +17,7 @@ class ButtonErrorConectionPage extends GetView {
     return Scaffold(
       body: Center(
         child: Container(
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.center,
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

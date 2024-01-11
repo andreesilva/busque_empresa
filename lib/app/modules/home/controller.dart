@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:busca_empresa/app/data/models/enterprise.dart';
 import 'package:busca_empresa/app/modules/home/repository.dart';
+import 'package:busca_empresa/helpers/app_lifecycle_reactor.dart.dart';
+import 'package:busca_empresa/helpers/app_open_ad_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HomeController extends GetxController with StateMixin<EnterpriseModel> {
   final HomeRepository _repository;
@@ -27,11 +30,26 @@ class HomeController extends GetxController with StateMixin<EnterpriseModel> {
 
   var timeLeft = 0.obs;
 
+  final bannerAd = BannerAd(
+          size: AdSize.banner,
+          adUnitId: 'ca-app-pub-3940256099942544/9257395921',
+          listener: const BannerAdListener(),
+          request: const AdRequest())
+      .obs;
+
+  int _counter = 0;
+  late AppLifecycleReactor _appLifecycleReactor;
+
   @override
   void onInit() {
     loading(true);
 
     searchEnterprise(cnpj);
+
+    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+    _appLifecycleReactor =
+        AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+    _appLifecycleReactor.listenToAppStateChanges();
 
     super.onInit();
   }

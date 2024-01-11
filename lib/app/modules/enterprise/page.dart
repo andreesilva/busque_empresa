@@ -138,6 +138,7 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                   top: 5, left: 20, right: 20),
                               child: Text(
                                 controller.state!.name!,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
                                     color: Colors.black,
@@ -159,6 +160,7 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                 top: 5, left: 20, right: 20),
                             child: Text(
                               "CNPJ: ${controller.state!.cnpj!} (${controller.state!.type!})",
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   color: Colors.black,
@@ -189,6 +191,7 @@ class EnterprisePage extends GetView<EnterpriseController> {
                             padding: const EdgeInsets.only(top: 10, left: 0),
                             child: Text(
                               'Capital social: R\$ ${controller.state!.shareCapital!}',
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   color: Colors.black,
@@ -267,13 +270,14 @@ class EnterprisePage extends GetView<EnterpriseController> {
                       )
                     },
                     style: button,
-                    child: Text("Entrar em contato com a empresa",
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        )),
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text("Entrar em contato com a empresa",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ))),
                   ),
                 ),
               const SizedBox(
@@ -336,16 +340,19 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                           elevation: 0,
                                           shadowColor: Colors.white,
                                         ),
-                                        child: Text(
-                                          "Atividades",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                                fontSize: 9,
-                                                color: controller.colorButton1
-                                                            .value !=
-                                                        true
-                                                    ? Colors.black
-                                                    : Colors.white),
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "Atividades",
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  color: controller.colorButton1
+                                                              .value !=
+                                                          true
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -390,16 +397,21 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                           elevation: 0,
                                           shadowColor: Colors.white,
                                         ),
-                                        child: Text("Sócios",
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "Sócios",
                                             style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 10,
+                                                  fontSize: 11,
                                                   color: controller.colorButton2
                                                               .value !=
                                                           true
                                                       ? Colors.black
                                                       : Colors.white),
-                                            )),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -442,16 +454,19 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                           elevation: 0,
                                           shadowColor: Colors.white,
                                         ),
-                                        child: Text(
-                                          "Endereço",
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                                fontSize: 10,
-                                                color: controller.colorButton3
-                                                            .value !=
-                                                        true
-                                                    ? Colors.black
-                                                    : Colors.white),
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "Endereço",
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                  fontSize: 12,
+                                                  color: controller.colorButton3
+                                                              .value !=
+                                                          true
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -496,16 +511,21 @@ class EnterprisePage extends GetView<EnterpriseController> {
                                           elevation: 0,
                                           shadowColor: Colors.white,
                                         ),
-                                        child: Text("Contatos",
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "Contatos",
                                             style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 10,
+                                                  fontSize: 12,
                                                   color: controller.colorButton4
                                                               .value !=
                                                           true
                                                       ? Colors.black
                                                       : Colors.white),
-                                            )),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),

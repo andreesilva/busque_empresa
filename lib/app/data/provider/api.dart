@@ -14,7 +14,7 @@ class Api extends GetConnect {
   Future<EnterpriseModel> getClient(String cnpj) async {
     try {
       final response = await http.get(
-        Uri.parse('https://receitaws.com.br/v1/cnpj/$cnpj'),
+        Uri.parse('https://receitaws.com.br/v1/cnpj/$cnpj/'),
       );
       //print(cnpj);
       //print(response.body);

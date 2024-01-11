@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:busca_empresa/app/core/theme/app_theme.dart';
 import 'package:busca_empresa/app/data/provider/api.dart';
 import 'package:busca_empresa/app/routes/pages.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 
 void main() async {
@@ -19,6 +22,9 @@ void main() async {
   Intl.defaultLocale = "pt_BR";
 
   RendererBinding.instance.setSemanticsEnabled(true);
+
+  WidgetsFlutterBinding.ensureInitialized();
+  unawaited(MobileAds.instance.initialize());
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
