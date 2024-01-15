@@ -9,4 +9,5 @@ class AboutController extends GetxController {
 
     super.onInit();
   }
+  //
 }
