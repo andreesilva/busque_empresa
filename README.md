@@ -1,16 +1,45 @@
-# busca_empresa
+<h1 align="center"> Busque Empresa </h1>
 
-A new Flutter project.
+<h1 align="center">
+    <img alt="Busque Empresa" title="#Busque Empresa" src="assets/recurso_grafico.png" />
+</h1>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<p align="center">
+	<img alt="Status Concluído" src="https://img.shields.io/badge/STATUS-CONCLU%C3%8DDO-brightgreen">
+</p>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 💻 Sobre o Busque Empresa
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+📄 O aplicativo Busque Empresa forneçe informações de empresas, consultadas atráves do seu CNPJ. Auxiliando dessa forma com a prospecção com as mesmas. O aplicativo não coleta os dados de usuários.
+
+---
+
+<h1 align="center">
+    <img alt="Busque Empresa" title="#Busque Empresa" src="assets/screenshort/smartphone/WhatsApp Image 2023-12-22 at 12.06.06 (3).jpeg" />
+</h1>
+
+## 🛠 Tecnologias
+
+
+
+- **[Flutter](https://flutter.dev/)**
+
+---
+
+## 🧙‍♂️ Autor
+
+<a href="https://www.linkedin.com/in/andr%C3%A9-erm%C3%ADnio-04b7a66b/">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/47976648?s=400&u=0d11578ca2d3a07826c0a05bdafd9e3f5b01ab3a&v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>André Ermínio da Silva</b></sub></a> 
+ <br />
+
+---
+
+## 📝 Licença
+
+<!-- Este projeto esta sobe a licença [MIT](./LICENSE). -->
+
+Feito por André Ermínio 👋🏽 [Entre em contato!](https://www.linkedin.com/in/andr%C3%A9-erm%C3%ADnio/)
